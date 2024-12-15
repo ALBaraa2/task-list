@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Response;
 use \App\Models\Task;
+use Illuminate\Http\Request;
 
 
 // class Task1
@@ -74,6 +75,8 @@ Route::get('/tasks', function () {
     ]);
 })->name('task.index');
 
+Route::view('/tasks/create','create')->name('tasks.create');
+
 // Route::get('/tasks/{id}', function ($id) use($tasks) {
 //     $task = collect($tasks)->firstWhere('id', $id);
 //     if (!$task) {
@@ -87,6 +90,13 @@ Route::get('/tasks/{id}', function ($id){
     return view('show',
     ['task' => \App\Models\Task::findOrFail($id)]);
 })->name('task.show');
+
+Route::post('/tasks', function (Request $request) {
+    dd($request->all());
+})->name('tasks.store');
+
+
+
 
 
 
