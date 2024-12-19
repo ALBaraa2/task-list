@@ -135,6 +135,11 @@ Route::post('/tasks', function (TaskRequest $request) {
 })->name('tasks.store');
 
 
+Route::delete('/tasks/{task}', function (Task $task) {
+    $task->delete();
+
+    return redirect()->route('task.index')->with('success', 'Task Deleted successfully');
+})->name('task.destroy');
 
 
 
