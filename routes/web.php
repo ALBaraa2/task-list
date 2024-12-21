@@ -119,6 +119,12 @@ Route::delete('/tasks/{task}', function (Task $task) {
     return redirect()->route('task.index')->with('success', 'Task Deleted successfully');
 })->name('task.destroy');
 
+Route::put('tasks/{task}/toggle-complete', function (Task $task) {
+    $task->toggleComplete();
+
+    return redirect()->back()->with('success', 'Task updated successfully');
+})->name('tasks.toggle-complete');
+
 // When you go to route does not exixst
 Route::fallback(function () {
     return 'This Route dose no exist';
