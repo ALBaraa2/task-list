@@ -64,15 +64,8 @@ Route::get('/', function () {
     return redirect()->route('task.index');
 });
 Route::get('/tasks', function () {
-    // return 'Main page';
-    //pasing data to blade template use [key => value]
     return view('index', [
-        // 'name' => 'ALBaraa',
-        //if you passed data as html script the data will be
-        //passed as you pass to as html script
-        // 'id' => '<b>ID<b>',
-        // 'test' => 'fsdfsdf',
-        'tasks' => Task::latest()->get()
+        'tasks' => Task::latest()->paginate()
     ]);
 })->name('task.index');
 
@@ -96,12 +89,6 @@ Route::get('/tasks/{task}/edit', function (Task $task){
 
 Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
 
-    // $data = $request->validated();
-
-    // $task->title = $data['title'];
-    // $task->description = $data['description'];
-    // $task->long_description = $data['long_description'];
-    // $task->save();
     $task->update($request->validated());
 
     return redirect()->route('task.show', ['task'=> $task->id])
@@ -118,15 +105,6 @@ Route::get('/tasks/{task}', function (Task $task){
 
 Route::post('/tasks', function (TaskRequest $request) {
 
-    // $data = $request->validated();
-
-    // $task = new Task;
-    // $task->title = $data['title'];
-    // $task->description = $data['description'];
-    // $task->long_description = $data['long_description'];
-
-    // $task->save();
-
     $task = Task::create($request->validated());
 
     return redirect()->route('task.show', ['task'=> $task->id])
@@ -140,22 +118,6 @@ Route::delete('/tasks/{task}', function (Task $task) {
 
     return redirect()->route('task.index')->with('success', 'Task Deleted successfully');
 })->name('task.destroy');
-
-
-
-
-// Route::get('/x', function () {
-//     return 'hello';
-// })->name('hello');
-
-// Route::get('/greet/{name}', function ($name) {
-//     return 'Hello ' . $name . '!';
-// });
-
-// Route::get('/rediract', function () {
-//     // return redirect('/hello');
-//     return redirect()->route('hello');
-// });
 
 // When you go to route does not exixst
 Route::fallback(function () {
