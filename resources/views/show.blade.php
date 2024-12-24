@@ -39,10 +39,16 @@
             </button>
         </form>
 
-        <form action="{{ route('task.destroy', ['task' => $task]) }}" method="POST">
+        <form
+            action="{{ route('task.destroy', ['task' => $task]) }}"
+            method="POST"
+            x-data
+            @submit.prevent="if (confirm('Are you sure you want to delete this task?')) $el.submit();">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn">Delete</button>
+            <button type="submit" class="btn">
+                Delete
+            </button>
         </form>
     </div>
 @endsection
