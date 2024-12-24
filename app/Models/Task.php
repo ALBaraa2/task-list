@@ -12,7 +12,8 @@ class Task extends Model
     protected $fillable = [
         'title',
         'description',
-        'long_description'
+        'long_description',
+        'day'
     ];
 
     public function toggleComplete() {
